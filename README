@@ -1,0 +1,32 @@
+DBAdManager
+Created By: Daniel Byon
+http://www.danielbyon.com
+
+
+This is a simple class that allows for supporting banner advertisements from Admob and iAd on iOS 4 and legacy iOS version devices. Currently, it only supports Admob ad sizes 320x48 and iAd ad sizes 320x50, so it is mostly meant for UITableViews and placement at the bottom of a static page.
+
+
+You can use the class in this way:
+
+// Within a view controller class, placing the ad in a UITableView
+// This code assumes there is a "DBManager *manager" instance variable
+- (void)viewDidLoad {
+	manager = [[DBAdManager alloc] initWithController:self adMobPublisherID:@"your publisher id"];
+	[super viewDidLoad];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	return [manager heightOfAd];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	return [manager adForDisplay];
+}
+
+
+This can also be used to connect to a UIView IBOutlet, just use the [UIView addSubview:] method
+- (void)viewDidLoad {
+	manager = [[DBAdManager alloc] initWithController:self adMobPublisherID:@"your publisher id"];
+	[adView addSubview:[manager adForDisplay]]; // "adView" is a UIView IBOutlet
+	[super viewDidLoad];
+}
